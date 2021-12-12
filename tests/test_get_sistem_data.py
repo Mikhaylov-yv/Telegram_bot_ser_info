@@ -1,6 +1,6 @@
 import pytest
-from scr.get_sistem_data import get_text_with_consol, lod_jeson
-
+from scr.get_sistem_data import get_text_with_consol, lod_jeson, save_to_csv
+from scr.light_info import Light_info
 
 
 @pytest.mark.parametrize(
@@ -31,11 +31,22 @@ def test_lod_jeson(light_jeyson_one):
     assert len(result) == 1
     assert type(result[0]).__name__ == 'dict'
 
+
+@pytest.mark.parametrize(
+    "text",
+    ['31.01.20 21:00 40', '31.01.20 21:15 45', '31.01.20 21:30 50'],
+)
+def test_save_to_csv(text):
+    save_to_csv(path='../data/test_light_info.csv', text = text)
+
+
+
 # Тест работы всего процесса по сценарию
 # Запрос 5 результатов измерения света
 # Получение медианы
 # Запись в csv файл значения с индексащией по времени.
 
-def test_main_from_test_data(test_open_jeyson):
-    print(test_open_jeyson)
-
+def test_main_from_test_data(light_jeyson):
+    obj = Light_info(step_min = 0.001, test=True)
+    obj.comand = f"echo '{light_jeyson}'"
+    obj.save_light(path='../data/test_light_info.csv')

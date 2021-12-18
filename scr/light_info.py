@@ -28,8 +28,9 @@ class Light_info:
             light = statistics.mean(vals)
             sring_out = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\t{light}"
             save_to_csv(path, sring_out)
-            time.sleep(self.step_min * 60)
+            # Выход при тестовом запуске
             if self.test == True and i >= 5: break
+            time.sleep(self.step_min * 60)
             i += 1
 
 

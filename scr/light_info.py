@@ -26,10 +26,10 @@ class Light_info:
             vals = []
             for res in result:
                 vals.append(res['light-bh1745']['values'][0])
-            light = statistics.mean(vals)
+            light = int(statistics.mean(vals))
             # Сохранение в csv файл
-            sring_out = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\t{light}"
-            save_to_csv(path, sring_out)
+            # sring_out = f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\t{light}"
+            # save_to_csv(path, sring_out)
             # Сохранение в базу данных
             self.db.add_light(id = 1, light = light)
             # Выход при тестовом запуске
